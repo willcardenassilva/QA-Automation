@@ -19,32 +19,32 @@ Prioridad: **A** = crítico, **M** = media, **B** = baja.
 
 | ID | Caso | Precondición | Pasos | Resultado esperado | Prior. | Requisito | Resultado real |
 |----|------|--------------|-------|--------------------|--------|--------|---------------|
-| LOG-01 | Login válido | Estar en la página de login | 1. Ingresar `standard_user` 2. Ingresar `secret_sauce` 3. Clic en Login | Se abre la página de productos (`/inventory.html`) con el título "Products" | A | RF-LOG-01, RF-LOG-02 | Pendiente |
-| LOG-02 | Contraseña incorrecta | Estar en login | 1. Usuario `standard_user` 2. Contraseña inválida 3. Login | Mensaje: "Epic sadface: Username and password do not match any user in this service". Permanece en login | A | RF-LOG-03 | Pendiente |
-| LOG-03 | Usuario inexistente | Estar en login | 1. Usuario inventado 2. Contraseña `secret_sauce` 3. Login | Mismo mensaje de credenciales inválidas | A | RF-LOG-03 | Pendiente |
-| LOG-04 | Usuario bloqueado | Estar en login | 1. `locked_out_user` / `secret_sauce` 2. Login | Mensaje: "Epic sadface: Sorry, this user has been locked out." No accede | A | RF-LOG-04 | Pendiente |
-| LOG-05 | Usuario vacío | Estar en login | 1. Dejar usuario vacío, contraseña `secret_sauce` 2. Login | Mensaje: "Epic sadface: Username is required" | M | RF-LOG-05 | Pendiente |
-| LOG-06 | Contraseña vacía | Estar en login | 1. Usuario `standard_user`, contraseña vacía 2. Login | Mensaje: "Epic sadface: Password is required" | M | RF-LOG-06 | Pendiente |
-| LOG-07 | Ambos campos vacíos | Estar en login | 1. Clic en Login sin datos | Mensaje: "Epic sadface: Username is required" | M | RF-LOG-05 | Pendiente |
-| LOG-08 | Cerrar el mensaje de error | Tener un error visible (LOG-02) | 1. Clic en la X del mensaje | El mensaje desaparece | B | RF-LOG-07 | Pendiente |
-| LOG-09 | Acceso directo sin sesión | Sin sesión iniciada | 1. Abrir `/inventory.html` directo en el navegador | No muestra productos; vuelve al login con mensaje "Epic sadface: You can only access '/inventory.html' when you are logged in." | A | RF-LOG-09 | Pendiente |
-| LOG-10 | Distinción de mayúsculas | Estar en login | 1. Usuario `Standard_User` 2. `secret_sauce` 3. Login | Mensaje de credenciales inválidas (el usuario distingue mayúsculas) | B | RF-LOG-08 | Pendiente |
+| LOG-01 | Login válido | Estar en la página de login | 1. Ingresar `standard_user` 2. Ingresar `secret_sauce` 3. Clic en Login | Se abre la página de productos (`/inventory.html`) con el título "Products" | A | RF-LOG-01, RF-LOG-02 | PASS (automatizado, 2026-10-22) |
+| LOG-02 | Contraseña incorrecta | Estar en login | 1. Usuario `standard_user` 2. Contraseña inválida 3. Login | Mensaje: "Epic sadface: Username and password do not match any user in this service". Permanece en login | A | RF-LOG-03 | PASS (automatizado, 2026-10-22) |
+| LOG-03 | Usuario inexistente | Estar en login | 1. Usuario inventado 2. Contraseña `secret_sauce` 3. Login | Mismo mensaje de credenciales inválidas | A | RF-LOG-03 | PASS (automatizado, 2026-10-22) |
+| LOG-04 | Usuario bloqueado | Estar en login | 1. `locked_out_user` / `secret_sauce` 2. Login | Mensaje: "Epic sadface: Sorry, this user has been locked out." No accede | A | RF-LOG-04 | PASS (automatizado, 2026-10-22) |
+| LOG-05 | Usuario vacío | Estar en login | 1. Dejar usuario vacío, contraseña `secret_sauce` 2. Login | Mensaje: "Epic sadface: Username is required" | M | RF-LOG-05 | PASS (automatizado, 2026-10-22) |
+| LOG-06 | Contraseña vacía | Estar en login | 1. Usuario `standard_user`, contraseña vacía 2. Login | Mensaje: "Epic sadface: Password is required" | M | RF-LOG-06 | PASS (automatizado, 2026-10-22) |
+| LOG-07 | Ambos campos vacíos | Estar en login | 1. Clic en Login sin datos | Mensaje: "Epic sadface: Username is required" | M | RF-LOG-05 | PASS (automatizado, 2026-10-22) |
+| LOG-08 | Cerrar el mensaje de error | Tener un error visible (LOG-02) | 1. Clic en la X del mensaje | El mensaje desaparece | B | RF-LOG-07 | PASS (automatizado, 2026-10-22) |
+| LOG-09 | Acceso directo sin sesión | Sin sesión iniciada | 1. Abrir `/inventory.html` directo en el navegador | No muestra productos; vuelve al login con mensaje "Epic sadface: You can only access '/inventory.html' when you are logged in." | A | RF-LOG-09 | PASS (automatizado, 2026-10-22) |
+| LOG-10 | Distinción de mayúsculas | Estar en login | 1. Usuario `Standard_User` 2. `secret_sauce` 3. Login | Mensaje de credenciales inválidas (el usuario distingue mayúsculas) | B | RF-LOG-08 | PASS (automatizado, 2026-10-22) |
 
 ## 2. Cierre de sesión
 
 | ID | Caso | Precondición | Pasos | Resultado esperado | Prior. | Requisito | Resultado real |
 |----|------|--------------|-------|--------------------|--------|--------|---------------|
-| OUT-01 | Logout desde el menú | Sesión iniciada | 1. Abrir menú (☰) 2. Clic en "Logout" | Vuelve a la página de login, campos vacíos | A | RF-MEN-04 | Pendiente |
-| OUT-02 | Sin acceso tras logout | Haber hecho logout | 1. Botón "atrás" del navegador | No se puede ver la página de productos sin sesión | M | RF-LOG-10 | Pendiente |
+| OUT-01 | Logout desde el menú | Sesión iniciada | 1. Abrir menú (☰) 2. Clic en "Logout" | Vuelve a la página de login, campos vacíos | A | RF-MEN-04 | PASS (automatizado, 2026-10-22) |
+| OUT-02 | Sin acceso tras logout | Haber hecho logout | 1. Botón "atrás" del navegador | No se puede ver la página de productos sin sesión | M | RF-LOG-10 | PASS (automatizado, 2026-10-22) |
 
 ## 3. Listado de productos
 
 | ID | Caso | Precondición | Pasos | Resultado esperado | Prior. | Requisito | Resultado real |
 |----|------|--------------|-------|--------------------|--------|--------|---------------|
-| PRO-01 | Se listan los 6 productos | Login `standard_user` | 1. Observar la página | 6 productos, cada uno con imagen, nombre, descripción, precio y botón "Add to cart" | A | RF-PRO-01, RF-PRO-02 | Pendiente |
+| PRO-01 | Se listan los 6 productos | Login `standard_user` | 1. Observar la página | 6 productos, cada uno con imagen, nombre, descripción, precio y botón "Add to cart" | A | RF-PRO-01, RF-PRO-02 | PASS (automatizado, 2026-10-22) |
 | PRO-02 | Orden por nombre A→Z | Login | 1. Selector de orden → "Name (A to Z)" | Productos ordenados alfabéticamente ascendente | M | RF-PRO-03 | Pendiente |
 | PRO-03 | Orden por nombre Z→A | Login | 1. "Name (Z to A)" | Orden alfabético descendente | M | RF-PRO-03 | Pendiente |
-| PRO-04 | Orden por precio menor a mayor | Login | 1. "Price (low to high)" | Precios en orden ascendente | M | RF-PRO-03 | Pendiente |
+| PRO-04 | Orden por precio menor a mayor | Login | 1. "Price (low to high)" | Precios en orden ascendente | M | RF-PRO-03 | PASS (automatizado, 2026-10-22) |
 | PRO-05 | Orden por precio mayor a menor | Login | 1. "Price (high to low)" | Precios en orden descendente | M | RF-PRO-03 | Pendiente |
 | PRO-06 | Detalle de producto por nombre | Login | 1. Clic en el nombre de un producto | Abre la página de detalle con nombre, descripción, precio e imagen correctos | A | RF-PRO-04, RF-PRO-07 | Pendiente |
 | PRO-07 | Detalle de producto por imagen | Login | 1. Clic en la imagen | Mismo detalle que PRO-06 | B | RF-PRO-04, RF-PRO-07 | Pendiente |
@@ -54,11 +54,11 @@ Prioridad: **A** = crítico, **M** = media, **B** = baja.
 
 | ID | Caso | Precondición | Pasos | Resultado esperado | Prior. | Requisito | Resultado real |
 |----|------|--------------|-------|--------------------|--------|--------|---------------|
-| CAR-01 | Agregar un producto | Login | 1. "Add to cart" en un producto | Botón cambia a "Remove"; el ícono del carrito muestra 1 | A | RF-PRO-05, RF-CAR-01 | Pendiente |
+| CAR-01 | Agregar un producto | Login | 1. "Add to cart" en un producto | Botón cambia a "Remove"; el ícono del carrito muestra 1 | A | RF-PRO-05, RF-CAR-01 | PASS (automatizado, 2026-10-22) |
 | CAR-02 | Agregar varios productos | Login | 1. Agregar 3 productos | El contador del carrito muestra 3 | A | RF-PRO-05, RF-CAR-01 | Pendiente |
 | CAR-03 | Quitar desde el listado | Un producto en carrito | 1. Clic en "Remove" | Botón vuelve a "Add to cart"; el contador baja | A | RF-PRO-06, RF-CAR-01 | Pendiente |
 | CAR-04 | Ver el carrito | 2 productos agregados | 1. Clic en el ícono del carrito | Abre `/cart.html` con los 2 productos, con cantidad y precio correctos | A | RF-CAR-02 | Pendiente |
-| CAR-05 | Quitar desde el carrito | Estar en el carrito con productos | 1. Clic en "Remove" de un producto | El producto desaparece y el contador se actualiza | A | RF-CAR-03 | Pendiente |
+| CAR-05 | Quitar desde el carrito | Estar en el carrito con productos | 1. Clic en "Remove" de un producto | El producto desaparece y el contador se actualiza | A | RF-CAR-03 | PASS (automatizado, 2026-10-22) |
 | CAR-06 | Carrito vacío | Sin productos | 1. Abrir el carrito | Lista vacía, se puede volver con "Continue Shopping" | M | RF-CAR-07 | Pendiente |
 | CAR-07 | Continuar comprando | Estar en el carrito | 1. "Continue Shopping" | Vuelve al listado conservando los productos del carrito | M | RF-CAR-04 | Pendiente |
 | CAR-08 | Persistencia del carrito | Productos agregados | 1. Navegar al detalle y volver | El carrito mantiene los productos | M | RF-CAR-05 | Pendiente |
@@ -68,15 +68,15 @@ Prioridad: **A** = crítico, **M** = media, **B** = baja.
 
 | ID | Caso | Precondición | Pasos | Resultado esperado | Prior. | Requisito | Resultado real |
 |----|------|--------------|-------|--------------------|--------|--------|---------------|
-| CHK-01 | Compra completa (camino feliz) | Login, 1 producto en carrito | 1. Carrito → Checkout 2. Nombre, apellido y código postal válidos 3. Continue 4. Revisar resumen 5. Finish | Pantalla "Thank you for your order!"; el carrito queda vacío | A | RF-CAR-06, RF-CHK-05, RF-CHK-13, RF-CHK-14 | Pendiente |
-| CHK-02 | Nombre vacío | En el paso 1 del checkout | 1. Dejar nombre vacío, completar el resto 2. Continue | Mensaje: "Error: First Name is required" | A | RF-CHK-02 | Pendiente |
+| CHK-01 | Compra completa (camino feliz) | Login, 1 producto en carrito | 1. Carrito → Checkout 2. Nombre, apellido y código postal válidos 3. Continue 4. Revisar resumen 5. Finish | Pantalla "Thank you for your order!"; el carrito queda vacío | A | RF-CAR-06, RF-CHK-05, RF-CHK-13, RF-CHK-14 | PASS (automatizado, 2026-10-22) |
+| CHK-02 | Nombre vacío | En el paso 1 del checkout | 1. Dejar nombre vacío, completar el resto 2. Continue | Mensaje: "Error: First Name is required" | A | RF-CHK-02 | PASS (automatizado, 2026-10-22) |
 | CHK-03 | Apellido vacío | Paso 1 | 1. Dejar apellido vacío 2. Continue | Mensaje: "Error: Last Name is required" | A | RF-CHK-03 | Pendiente |
 | CHK-04 | Código postal vacío | Paso 1 | 1. Dejar código postal vacío 2. Continue | Mensaje: "Error: Postal Code is required" | A | RF-CHK-04 | Pendiente |
 | CHK-05 | Todos los campos vacíos | Paso 1 | 1. Continue sin datos | Mensaje: "Error: First Name is required" | M | RF-CHK-02 | Pendiente |
 | CHK-06 | Cancelar en el paso 1 | Paso 1 | 1. "Cancel" | Vuelve al carrito | M | RF-CHK-06 | Pendiente |
 | CHK-07 | Cancelar en el resumen | Paso 2 | 1. "Cancel" | Vuelve al listado de productos | M | RF-CHK-12 | Pendiente |
-| CHK-08 | Subtotal correcto | 3 productos en carrito | 1. Llegar al resumen 2. Sumar precios a mano | "Item total" = suma de los precios | A | RF-CHK-09 | Pendiente |
-| CHK-09 | Impuesto y total | Resumen | 1. Comparar con el item total | Tax ≈ 8 % del item total; Total = item total + tax | A | RF-CHK-10, RF-CHK-11 | Pendiente |
+| CHK-08 | Subtotal correcto | 3 productos en carrito | 1. Llegar al resumen 2. Sumar precios a mano | "Item total" = suma de los precios | A | RF-CHK-09 | PASS (automatizado, 2026-10-22) |
+| CHK-09 | Impuesto y total | Resumen | 1. Comparar con el item total | Tax ≈ 8 % del item total; Total = item total + tax | A | RF-CHK-10, RF-CHK-11 | PASS (automatizado, 2026-10-22) |
 | CHK-10 | Resumen coincide con carrito | Resumen | 1. Comparar productos y cantidades | Mismos productos y precios que en el carrito | A | RF-CHK-07 | Pendiente |
 | CHK-11 | Volver al inicio tras comprar | Compra finalizada | 1. "Back Home" | Vuelve al listado con el carrito en 0 | M | RF-CHK-15 | Pendiente |
 | CHK-12 | Checkout con carrito vacío | Carrito sin productos | 1. Intentar ir a Checkout | **A verificar:** el sitio podría dejar avanzar con carrito vacío (posible defecto) | M | Sin requisito (duda 11.1) | Pendiente |

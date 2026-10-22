@@ -147,3 +147,13 @@ vite.config.ts.timestamp-*
 
 # Turbo Repo
 .turbo
+
+# Credenciales del agente: solo se versionan el README y los usuarios públicos de demo
+agent-config/credentials/*
+!agent-config/credentials/saucedemo-users.md
+
+# Playwright
+node_modules/
+playwright-report/
+test-results/
+automatizacion/.auth/

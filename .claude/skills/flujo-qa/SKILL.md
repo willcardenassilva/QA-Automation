@@ -14,7 +14,8 @@ En una empresa el QA no empieza probando: recibe documentación y de ella salen 
 | 3. Casos | `casos-de-prueba` | Casos funcionales y visuales, camino crítico | `casos-manuales/casos-de-prueba-<producto>.md` |
 | 4. Revisión | `trazabilidad-qa` | Cobertura verificada y matrices coherentes | (corrige los anteriores) |
 | 5. Entrega | (este flujo) | Commit y push al repositorio | |
-| 6. Siguiente | ejecución y automatización | Resultados reales, defectos, pruebas automáticas del camino crítico | `automatizacion/` |
+| 6. Ejecución con agente | `saucedemo-tester`, `saucedemo-testing-method`, `saucedemo-checkout` | Flujos de `agent-prompts/flows/` ejecutados en el navegador, `99-resumen-ejecucion.md` y bugs en GitHub Issues | `agent-prompts/flows/<épica>/` |
+| 7. Automatización | Playwright (`automatizacion/`) | Pruebas automáticas del camino crítico; el código inicia sesión, sin intervención manual | `automatizacion/tests/` |
 
 ## Cómo conducirlo
 
@@ -26,4 +27,4 @@ En una empresa el QA no empieza probando: recibe documentación y de ella salen 
 
 ## Después del diseño
 
-La etapa 6 es lo siguiente natural: ejecutar los casos manuales para llenar "Resultado real" y registrar defectos con pasos, evidencia y severidad; luego automatizar el camino crítico (por ejemplo con Playwright, usando los textos originales de la interfaz, no la traducción del navegador) y referenciar cada prueba automática desde su caso.
+La etapa 6 es lo siguiente natural: ejecutar los flujos de `agent-prompts/flows/` con el navegador para llenar "Resultado real" y registrar defectos como borradores de GitHub Issues (con pasos, evidencia y severidad, y solo con la confirmación del usuario). Luego, la etapa 7: automatizar el camino crítico (por ejemplo con Playwright, usando los textos originales de la interfaz, no la traducción del navegador) y referenciar cada prueba automática desde su caso.
