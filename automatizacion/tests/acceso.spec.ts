@@ -10,7 +10,7 @@ test.describe('Acceso – Login y cierre de sesión', () => {
     await page.goto('/');
   });
 
-  test('LOG-01 login válido abre el listado de productos', async ({ page }) => {
+  test('LOG-01 login válido abre el listado de productos', { tag: '@smoke' }, async ({ page }) => {
     await login(page, USERS.standard);
     await expect(page).toHaveURL(/\/inventory\.html$/);
     await expect(page.getByTestId('title')).toHaveText('Products');
@@ -57,7 +57,7 @@ test.describe('Acceso – Login y cierre de sesión', () => {
     await expect(page.getByTestId('error')).toHaveCount(0);
   });
 
-  test('LOG-09 acceso directo sin sesión vuelve al login con mensaje', async ({ page }) => {
+  test('LOG-09 acceso directo sin sesión vuelve al login con mensaje', { tag: '@smoke' }, async ({ page }) => {
     await page.goto('/inventory.html');
     await expect(page.getByTestId('error')).toHaveText(MSG.notLoggedIn('/inventory.html'));
     await expect(page.getByTestId('inventory-container')).toHaveCount(0);
@@ -68,7 +68,7 @@ test.describe('Acceso – Login y cierre de sesión', () => {
     await expect(page.getByTestId('error')).toHaveText(MSG.invalidCredentials);
   });
 
-  test('OUT-01 logout vuelve al login con los campos vacíos', async ({ page }) => {
+  test('OUT-01 logout vuelve al login con los campos vacíos', { tag: '@smoke' }, async ({ page }) => {
     await login(page, USERS.standard);
     await expect(page).toHaveURL(/\/inventory\.html$/);
     await page.locator('#react-burger-menu-btn').click();
@@ -86,5 +86,17 @@ test.describe('Acceso – Login y cierre de sesión', () => {
     await expect(page).toHaveURL(/saucedemo\.com\/$/);
     await page.goBack();
     await expect(page.getByTestId('inventory-container')).toHaveCount(0);
+  });
+
+  // Hallazgo (tema por definir con producto): con la sesión activa, "atrás" desde el inventario muestra el
+  // formulario de login y "adelante" vuelve al inventario sin cerrar la sesión.
+  test('LOG-11 con la sesión activa, "atrás" no debería mostrar el formulario de login', async ({ page }) => {
+    test.fail(true, 'Por definir con producto: con la sesión activa, "atrás" muestra el formulario de login');
+    await login(page, USERS.standard);
+    await expect(page).toHaveURL(/\/inventory\.html$/);
+
+    await page.goBack();
+
+    await expect(page.getByTestId('login-button')).toHaveCount(0);
   });
 });

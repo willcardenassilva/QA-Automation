@@ -7,7 +7,7 @@ test.describe('Carrito', () => {
     await page.goto('/inventory.html');
   });
 
-  test('CAR-01 agregar un producto cambia el botón y sube el contador', async ({ page }) => {
+  test('CAR-01 agregar un producto cambia el botón y sube el contador', { tag: '@smoke' }, async ({ page }) => {
     await addToCart(page, PRODUCT.backpack);
 
     await expect(page.getByTestId(`remove-${PRODUCT.backpack}`)).toBeVisible();

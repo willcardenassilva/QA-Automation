@@ -35,9 +35,16 @@ Una tabla por módulo, con estas columnas:
 - **Persistencia:** el estado se conserva al navegar.
 - **Usuarios de prueba con fallas intencionales:** compáralos contra el comportamiento esperado y marca "posible defecto".
 
+## Detalle y todos los usuarios
+
+Antes de dar por completo el plan, revisa la skill `qa-exhaustivo`: lista de comprobación por vista (contenido, geometría,
+accesibilidad, navegación, rendimiento, red) y la **matriz de todos los usuarios o roles** contra un usuario base. Cada
+usuario existente debe pasar por las mismas verificaciones, y los defectos conocidos se declaran como fallos esperados.
+Los hallazgos nuevos que salgan al comparar con la exploración manual se agregan como casos (sección "Hallazgos adicionales").
+
 ## Pruebas visuales por vista
 
-Agrega una sección de casos `VIS-NN` con una columna "Vista". Por cada pantalla cubre: composición general según el wireframe, estados (error, vacío, botón activo, contador), alineación, imágenes cargadas y sin deformarse. Luego casos transversales: encabezado y pie consistentes, tipografía y colores, resoluciones (1920×1080, 1366×768, 768×1024, 375×812), zoom al 200 % y recursos sin errores en la consola.
+Agrega una sección de casos `VIS-NN` con una columna "Vista". Por cada pantalla cubre: composición general según el wireframe, estados (error, vacío, botón activo, contador), alineación, imágenes cargadas y sin deformarse, íconos sin rotar, contraste del texto y consistencia entre pantallas (medidos, no a ojo). Luego casos transversales: encabezado y pie consistentes, tipografía y colores, resoluciones (1920×1080, 1366×768, 768×1024, 375×812), zoom al 200 % y recursos sin errores en la consola.
 
 Método: ejecutar con el usuario estándar en un navegador y resolución base, guardar una captura por vista como línea base y comparar en cada ejecución; a futuro se automatiza con capturas comparables. Si no hay diseño oficial, la referencia son los wireframes del documento funcional.
 

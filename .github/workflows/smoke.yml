@@ -1,0 +1,49 @@
+name: Smoke test diario
+
+on:
+  # Todos los días a las 12:00 UTC (09:00 en Argentina/Chile). El horario de GitHub es siempre UTC.
+  schedule:
+    - cron: '0 12 * * *'
+  # Permite ejecutarlo a mano desde la pestaña Actions
+  workflow_dispatch:
+  # Y en cada cambio que llegue a main, para detectar roturas en el momento
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    name: Smoke test (Playwright)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Descargar el repositorio
+        uses: actions/checkout@v4
+
+      - name: Instalar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Instalar Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Ejecutar el smoke test
+        run: npm run smoke
+
+      - name: Guardar el informe
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: informe-smoke
+          path: |
+            playwright-report/
+            test-results/
+          retention-days: 14
+          if-no-files-found: ignore

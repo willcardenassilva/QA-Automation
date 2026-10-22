@@ -6,7 +6,7 @@ test.describe('Inventario – listado de productos', () => {
     await page.goto('/inventory.html');
   });
 
-  test('PRO-01 se listan los 6 productos con todos sus datos', async ({ page }) => {
+  test('PRO-01 se listan los 6 productos con todos sus datos', { tag: '@smoke' }, async ({ page }) => {
     const items = page.getByTestId('inventory-item');
     await expect(items).toHaveCount(6);
 

@@ -13,7 +13,7 @@ test.describe('Checkout', () => {
     await page.goto('/inventory.html');
   });
 
-  test('CHK-01 compra completa (camino feliz)', async ({ page }) => {
+  test('CHK-01 compra completa (camino feliz)', { tag: '@smoke' }, async ({ page }) => {
     await addToCart(page, PRODUCT.backpack);
     await goToCheckoutStepOne(page);
     await fillCheckoutInfo(page);

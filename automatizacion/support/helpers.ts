@@ -25,6 +25,20 @@ export function round2(value: number): number {
   return Math.round(value * 100) / 100;
 }
 
+export async function openMenu(page: Page) {
+  await page.locator('#react-burger-menu-btn').click();
+  await expect(page.getByTestId('logout-sidebar-link')).toBeVisible();
+}
+
+// Nombres y precios tal como se ven en el listado, en el orden en que aparecen
+export async function listNames(page: Page): Promise<string[]> {
+  return page.getByTestId('inventory-item-name').allTextContents();
+}
+
+export async function listPrices(page: Page): Promise<number[]> {
+  return (await page.getByTestId('inventory-item-price').allTextContents()).map(parseMoney);
+}
+
 // Del carrito al paso 1 del checkout
 export async function goToCheckoutStepOne(page: Page) {
   await page.getByTestId('shopping-cart-link').click();

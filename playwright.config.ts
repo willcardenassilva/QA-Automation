@@ -5,7 +5,9 @@ const SESSION_FILE = 'automatizacion/.auth/standard_user.json';
 export default defineConfig({
   testDir: 'automatizacion',
   fullyParallel: true,
-  retries: 0,
+  // En GitHub Actions (CI) un reintento absorbe cortes de red momentáneos hacia el sitio
+  retries: process.env.CI ? 1 : 0,
+  forbidOnly: !!process.env.CI,
   reporter: [['list'], ['html', { open: 'never' }]],
   use: {
     baseURL: 'https://www.saucedemo.com',

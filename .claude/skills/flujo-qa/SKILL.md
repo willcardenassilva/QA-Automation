@@ -16,6 +16,7 @@ En una empresa el QA no empieza probando: recibe documentación y de ella salen 
 | 5. Entrega | (este flujo) | Commit y push al repositorio | |
 | 6. Ejecución con agente | `saucedemo-tester`, `saucedemo-testing-method`, `saucedemo-checkout` | Flujos de `agent-prompts/flows/` ejecutados en el navegador, `99-resumen-ejecucion.md` y bugs en GitHub Issues | `agent-prompts/flows/<épica>/` |
 | 7. Automatización | Playwright (`automatizacion/`) | Pruebas automáticas del camino crítico; el código inicia sesión, sin intervención manual | `automatizacion/tests/` |
+| 8. Evaluación | `qa-exhaustivo` | Cruce de los hallazgos manuales con los del agente, medidos y clasificados; casos y tests nuevos para lo que falte | `documentacion/evaluacion-de-bugs.md` |
 
 ## Cómo conducirlo
 
@@ -24,6 +25,12 @@ En una empresa el QA no empieza probando: recibe documentación y de ella salen 
 3. **Reporta con honestidad el origen de los datos:** si los textos, precios o comportamientos salieron de memoria o de exploración y no de una ejecución, dilo, porque los resultados esperados quedan "Pendiente" hasta ejecutar.
 4. **Revisa trazabilidad antes de entregar** (etapa 4); es lo que evita requisitos sin casos y matrices desactualizadas.
 5. **Entrega (etapa 5):** muestra qué archivos se van a subir. Haz commit y push solo cuando el usuario lo confirme. Si Git no tiene identidad configurada, pregunta con qué nombre y correo firmar (queda visible en el historial); no los inventes ni uses configuración global sin permiso.
+
+## Detalle en todas las etapas
+
+Desde el diseño (etapas 1 a 3) aplica `qa-exhaustivo`: pruebas visuales por vista y **todos los usuarios o roles** del
+sistema, no solo el camino feliz con un usuario. La etapa 8 cierra el ciclo comparando lo que encontró la persona con lo que
+encontró el agente: cada hallazgo manual se verifica con medidas, se clasifica y, si falta, se convierte en caso y test.
 
 ## Después del diseño
 

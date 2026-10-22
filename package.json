@@ -5,6 +5,7 @@
   "description": "Pruebas automatizadas con Playwright para SauceDemo (Swag Labs)",
   "scripts": {
     "test": "playwright test",
+    "smoke": "playwright test --grep @smoke",
     "test:headed": "playwright test --headed",
     "test:ui": "playwright test --ui",
     "report": "playwright show-report"

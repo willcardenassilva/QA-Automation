@@ -16,6 +16,7 @@ Producto bajo prueba: https://www.saucedemo.com (sitio de demostración público
 | Pruebas automáticas (Playwright, el código inicia sesión solo) | `automatizacion/`, `playwright.config.ts` (ver `automatizacion/README.md`) |
 | Skills de proceso (análisis y diseño) | `.claude/skills/` (`flujo-qa`, `documento-funcional`, `historias-de-usuario`, `casos-de-prueba`, `trazabilidad-qa`) |
 | Skills de ejecución (agente) | `.claude/skills/saucedemo-tester`, `saucedemo-testing-method`, `saucedemo-checkout` |
+| Skill de detalle y todos los usuarios (reutilizable en otros proyectos) | `.claude/skills/qa-exhaustivo` |
 
 ## Reglas del proyecto
 
@@ -23,6 +24,7 @@ Producto bajo prueba: https://www.saucedemo.com (sitio de demostración público
 @.claude/rules/browser-network-capture.md
 @.claude/rules/github-bug-creation.md
 @.claude/rules/login-y-contrasenas.md
+@.claude/rules/prueba-detallista.md
 
 ## Cómo trabajar
 

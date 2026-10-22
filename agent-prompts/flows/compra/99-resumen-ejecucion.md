@@ -2,11 +2,11 @@
 
 | Campo | Valor |
 |-------|-------|
-| Modo | TURBO (casos críticos automatizados) |
+| Modo | COMPLETO (automatizado) |
 | Fecha | 2026-10-22 |
 | Navegador / resolución | Chromium (Desktop Chrome de Playwright) |
 | Herramienta | Playwright 1.64.1 (Chromium) |
-| Estado | **Parcial:** 8 casos críticos ejecutados; los edge cases siguen pendientes |
+| Estado | **Ejecutado** (casos críticos y de regresión) |
 
 ## Resultados
 
@@ -19,10 +19,12 @@
 | CHK-01 | PASS | Automatizado, 2026-10-22 | |
 | CHK-08 | PASS | Automatizado, 2026-10-22 | |
 | CHK-09 | PASS | Automatizado, 2026-10-22 | |
-| CHK-10 | Pendiente | | |
+| CHK-10 | PASS | Automatizado (`checkout-regresion.spec.ts`), 2026-10-22 | |
 | CHK-02 | PASS | Automatizado, 2026-10-22 | |
-| CHK-03…07, 11, 12 | Pendiente | | |
-| CAR-02…04, 06…09 | Pendiente | | |
+| CHK-03…07, 11 | PASS | Automatizado (`checkout-regresion.spec.ts`), 2026-10-22 | |
+| CHK-12 | Defecto confirmado | El sitio permite iniciar el checkout con el carrito vacío (duda 11.1); el test lo registra como fallo esperado | Posible defecto |
+| CAR-02…04, 06…09 | PASS | Automatizado (`carrito-regresion.spec.ts`), 2026-10-22 | |
+| PRO-02, 03, 05, 06, 07, 08 | PASS | Automatizado (`inventario-detalle.spec.ts`), 2026-10-22 | |
 
 ## Cálculos de la ejecución
 
@@ -34,11 +36,11 @@
 
 ## Totales
 
-PASS: 8 · FAIL: 0 · WARNING: 0 · Pendiente: edge cases (CHK-03…07, 11, 12; CAR-02…04, 06…09)
+PASS: 29 · Defecto confirmado: 1 (CHK-12) · FAIL: 0 · Pendiente: 0
 
 ## Diferencias app ≠ documento
 
-(ninguna registrada todavía)
+- CHK-12: el documento no define el comportamiento con el carrito vacío (duda 11.1); la app permite avanzar.
 
 ## Bugs sugeridos
 
