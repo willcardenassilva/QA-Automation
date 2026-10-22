@@ -102,6 +102,7 @@ luego los tests. `npm run report` abre el informe HTML.
 | `tests/usuarios-especiales.spec.ts` | USR-01…07, 02b, 02c, 03b, 05b, 07c, 07d, 07e (defectos intencionales, fallos esperados) |
 | `tests/visual.spec.ts` | VIS-01…VIS-24 y VIS-26 (comprobaciones visuales estructurales) |
 | `tests/todos-los-usuarios.spec.ts` | Matriz de los 6 usuarios × 16 verificaciones, comparadas con el estándar (MAT-…) |
+| `herramientas/capturar-evidencias.mjs` | Script (no es un test) que regenera las capturas y medidas de `documentacion/evidencias/` |
 | `tests/dynamic-catalog.spec.ts` | DYN-01…DYN-03 (función "Dynamic Catalog", no documentada) |
 
 El ID del caso (`LOG-01`, `CHK-08`…) va al inicio del título de cada test para mantener la trazabilidad con

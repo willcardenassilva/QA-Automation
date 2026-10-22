@@ -16,6 +16,7 @@ Producto bajo prueba: https://www.saucedemo.com (sitio de demostración público
 | Pruebas automáticas (Playwright, el código inicia sesión solo) | `automatizacion/`, `playwright.config.ts` (ver `automatizacion/README.md`) |
 | Skills de proceso (análisis y diseño) | `.claude/skills/` (`flujo-qa`, `documento-funcional`, `historias-de-usuario`, `casos-de-prueba`, `trazabilidad-qa`) |
 | Skills de ejecución (agente) | `.claude/skills/saucedemo-tester`, `saucedemo-testing-method`, `saucedemo-checkout` |
+| Matriz de bugs con evidencias (bloqueantes, visuales y no bloqueantes) | `documentacion/matriz-de-bugs.md` |
 | Skill de detalle y todos los usuarios (reutilizable en otros proyectos) | `.claude/skills/qa-exhaustivo` |
 
 ## Reglas del proyecto

@@ -1,0 +1,224 @@
+{
+  "generado": "2026-10-22T22:15:01.288Z",
+  "navegador": "Chromium (Playwright)",
+  "resolucion": "1280x800",
+  "BUG-01": {
+    "url": "https://www.saucedemo.com/checkout-step-one.html",
+    "productosEnCarrito": 0
+  },
+  "BUG-02": {
+    "badgeVisible": 0,
+    "botonesRemoveVisibles": 2
+  },
+  "BUG-03": {
+    "nombre": "Test.allTheThings() T-Shirt (Red)",
+    "imagen": "/assets/red-tatt-1200x1500-E-qp6aYf.jpg"
+  },
+  "BUG-04": {
+    "colorTexto": "rgb(255, 255, 255)",
+    "colorFondo": "rgb(226, 35, 26)",
+    "tamanoPx": "14px",
+    "contraste": "4.68:1"
+  },
+  "BUG-05": {
+    "urlTrasAtras": "https://www.saucedemo.com/",
+    "formularioLoginVisible": 1,
+    "cookieSesion": true
+  },
+  "BUG-06": {
+    "viewport": "1920x1080",
+    "centroBotonX": 873,
+    "centroPaginaX": 960,
+    "centroEncabezadoX": 960,
+    "desplazamientoPx": -87
+  },
+  "BUG-07": {
+    "tarjetasPorScroll": [
+      8,
+      16,
+      24,
+      28,
+      36,
+      40,
+      48,
+      52,
+      60,
+      64,
+      72,
+      76,
+      84,
+      88,
+      96
+    ],
+    "tarjetasFinal": 96,
+    "nombresDistintos": 21
+  },
+  "BUG-08": {
+    "imagenesDistintas": 1,
+    "de": 6
+  },
+  "BUG-09": {
+    "preciosTrasOrdenarMenorAMayor": [
+      "$29.99",
+      "$9.99",
+      "$15.99",
+      "$49.99",
+      "$7.99",
+      "$15.99"
+    ]
+  },
+  "BUG-10": {
+    "contadorTrasAgregar6": "3",
+    "botones": [
+      "Remove",
+      "Remove",
+      "Add to cart",
+      "Add to cart",
+      "Remove",
+      "Add to cart"
+    ]
+  },
+  "BUG-11": {
+    "escrito": {
+      "nombre": "Ana",
+      "apellido": "Pérez",
+      "postal": "1000"
+    },
+    "enLosCampos": {
+      "nombre": "Pérez",
+      "apellido": "",
+      "postal": "1000"
+    },
+    "tras_continuar": {
+      "url": "https://www.saucedemo.com/checkout-step-one.html",
+      "error": "Error: Last Name is required"
+    }
+  },
+  "BUG-12": {
+    "avisoMostrado": [
+      "Sorting is broken! This error has been reported to Backtrace."
+    ],
+    "nombresTrasOrdenarZA": [
+      "Sauce Labs Backpack",
+      "Sauce Labs Bike Light",
+      "Sauce Labs Bolt T-Shirt",
+      "Sauce Labs Fleece Jacket",
+      "Sauce Labs Onesie",
+      "Test.allTheThings() T-Shirt (Red)"
+    ]
+  },
+  "BUG-13": {
+    "contadorTrasAgregar6": "3",
+    "botones": [
+      "Remove",
+      "Remove",
+      "Add to cart",
+      "Add to cart",
+      "Remove",
+      "Add to cart"
+    ]
+  },
+  "BUG-14": {
+    "enLosCampos": {
+      "nombre": "Ana",
+      "apellido": "",
+      "postal": "1000"
+    },
+    "trasFinish": {
+      "url": "https://www.saucedemo.com/checkout-step-two.html",
+      "seCompletoLaCompra": false
+    }
+  },
+  "BUG-15": {
+    "standard_user": {
+      "loginMs": 166,
+      "ordenarMs": 32,
+      "recargaInventarioMs": 307,
+      "abrirMenuMs": 31
+    },
+    "performance_glitch_user": {
+      "loginMs": 5174,
+      "ordenarMs": 5030,
+      "recargaInventarioMs": 5101,
+      "abrirMenuMs": 35
+    }
+  },
+  "BUG-16": {
+    "standard_user": {
+      "loginMs": 166,
+      "ordenarMs": 32,
+      "recargaInventarioMs": 307,
+      "abrirMenuMs": 31
+    },
+    "performance_glitch_user": {
+      "loginMs": 5174,
+      "ordenarMs": 5030,
+      "recargaInventarioMs": 5101,
+      "abrirMenuMs": 35
+    }
+  },
+  "BUG-17": {
+    "preciosEstandar": [
+      "$29.99",
+      "$9.99",
+      "$15.99",
+      "$49.99",
+      "$7.99",
+      "$15.99"
+    ],
+    "preciosVisualCarga1": [
+      "$28.99",
+      "$35.27",
+      "$45.9",
+      "$26.58",
+      "$55.15",
+      "$45.63"
+    ],
+    "preciosVisualCarga2": [
+      "$14.79",
+      "$36.39",
+      "$75.91",
+      "$69.92",
+      "$84.99",
+      "$19.27"
+    ],
+    "preciosVisualTrasOrdenarMenorAMayor": [
+      "$37.56",
+      "$64.67",
+      "$85.66",
+      "$33.82",
+      "$29.59",
+      "$26.16"
+    ]
+  },
+  "BUG-19": {
+    "carritoEstandar": {
+      "x": 1220,
+      "y": 10
+    },
+    "carritoVisual": {
+      "x": 1034,
+      "y": 39,
+      "alto": 42
+    },
+    "solapamientoConSelectorPx": 11
+  },
+  "BUG-18": {
+    "primeraImagenVisual": "/assets/sl-404-Cq1a9k9X.jpg"
+  },
+  "BUG-21": {
+    "transform": "matrix(0.99863, 0.052336, -0.052336, 0.99863, 0, 0)",
+    "clase": "bm-icon visual_failure",
+    "ancho": 21.019309997558594
+  },
+  "BUG-20": {
+    "botonCheckoutEstandar": {
+      "x": 1045,
+      "y": 218
+    },
+    "botonCheckoutVisual": {
+      "x": 1060,
+      "y": 0
+    }
+  }
+}

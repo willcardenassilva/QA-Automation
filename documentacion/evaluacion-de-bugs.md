@@ -6,6 +6,7 @@
 | Fuente A | Lista de bugs encontrados por la persona que prueba (exploración manual) |
 | Fuente B | Pruebas del agente (Playwright, 92 tests) y verificaciones directas en el sitio |
 | Producto | https://www.saucedemo.com |
+| Matriz detallada | [matriz-de-bugs.md](matriz-de-bugs.md): 21 hallazgos con categoría, severidad, evidencias e issues |
 
 Cada hallazgo de la lista manual se verificó en el sitio con medidas (posiciones, tiempos, contraste, conteos) y, cuando
 se confirmó y no estaba cubierto, se convirtió en un test.

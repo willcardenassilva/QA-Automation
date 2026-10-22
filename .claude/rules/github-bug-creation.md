@@ -11,6 +11,17 @@ Los defectos se reportan en el repositorio `willcardenassilva/QA-Automation` con
    `[Usuario de prueba]` y severidad según el impacto, no como regresión.
 4. Busca issues abiertos con el mismo problema para no duplicar.
 
+## Clasificación (matriz de bugs)
+
+Todo hallazgo se clasifica en `documentacion/matriz-de-bugs.md` con una **categoría**, además de la severidad:
+
+- **Bloqueante:** impide iniciar sesión o completar la compra (flujo principal).
+- **Visual:** solo afecta la presentación (posición, imagen, contraste, alineación, íconos).
+- **No bloqueante:** falla algo secundario, de contenido, de navegación o de rendimiento, y el flujo principal se completa.
+
+Cada bug lleva evidencia (captura y medida), requisito, test y origen (producto, usuario de prueba o por definir).
+Las evidencias se regeneran con `node automatizacion/herramientas/capturar-evidencias.mjs`.
+
 ## Formato
 
 - **Título:** `[Módulo] Qué falla` (ej. `[Checkout] El impuesto no es el 8 % del item total`).
