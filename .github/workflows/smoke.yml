@@ -1,12 +1,18 @@
 name: Smoke test diario
 
+# Control desde GitHub (Settings → Secrets and variables → Actions → pestaña Variables), sin tocar el código:
+#   SMOKE_ACTIVO  true / false   Enciende o apaga la ejecución diaria y la de cada push (por defecto: true)
+#   SMOKE_HORA    0 a 23         Hora local de la corrida diaria (por defecto: 9)
+#   SMOKE_ZONA    zona horaria   Por ejemplo America/Argentina/Buenos_Aires, America/Santiago, America/Mexico_City
+#                                (por defecto: America/Argentina/Buenos_Aires)
+# La ejecución manual (botón "Run workflow") siempre funciona, aunque SMOKE_ACTIVO sea false.
+# GitHub no permite una hora variable en el cron: el workflow se despierta cada hora (minuto 17) y el primer job decide
+# si corresponde ejecutar el smoke. Las ejecuciones "¿Corresponde ejecutar?" que se omiten duran segundos.
+
 on:
-  # Todos los días a las 12:00 UTC (09:00 en Argentina/Chile). El horario de GitHub es siempre UTC.
   schedule:
-    - cron: '0 12 * * *'
-  # Permite ejecutarlo a mano desde la pestaña Actions
+    - cron: '17 * * * *'
   workflow_dispatch:
-  # Y en cada cambio que llegue a main, para detectar roturas en el momento
   push:
     branches: [main]
 
@@ -14,8 +20,45 @@ permissions:
   contents: read
 
 jobs:
+  decidir:
+    name: ¿Corresponde ejecutar?
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    outputs:
+      ejecutar: ${{ steps.decision.outputs.ejecutar }}
+    steps:
+      - name: Decidir según las variables del repositorio
+        id: decision
+        env:
+          EVENTO: ${{ github.event_name }}
+          ACTIVO: ${{ vars.SMOKE_ACTIVO || 'true' }}
+          HORA: ${{ vars.SMOKE_HORA || '9' }}
+          ZONA: ${{ vars.SMOKE_ZONA || 'America/Argentina/Buenos_Aires' }}
+        run: |
+          ejecutar=false
+          if [ "$EVENTO" = "workflow_dispatch" ]; then
+            ejecutar=true
+            echo "Ejecución manual: se ejecuta."
+          elif [ "$ACTIVO" != "true" ]; then
+            echo "Apagado (SMOKE_ACTIVO=$ACTIVO): no se ejecuta."
+          elif [ "$EVENTO" = "push" ]; then
+            ejecutar=true
+            echo "Cambio en main: se ejecuta."
+          else
+            hora_actual=$(TZ="$ZONA" date +%-H)
+            hora_elegida=$((10#$HORA))
+            echo "Hora actual en $ZONA: $hora_actual. Hora elegida: $hora_elegida."
+            if [ "$hora_actual" = "$hora_elegida" ]; then
+              ejecutar=true
+            fi
+          fi
+          echo "Resultado: ejecutar=$ejecutar"
+          echo "ejecutar=$ejecutar" >> "$GITHUB_OUTPUT"
+
   smoke:
     name: Smoke test (Playwright)
+    needs: decidir
+    if: needs.decidir.outputs.ejecutar == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:

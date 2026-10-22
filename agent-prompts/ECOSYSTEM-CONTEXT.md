@@ -27,7 +27,7 @@ real ni backoffice. El único entorno es https://www.saucedemo.com.
 | Checkout – confirmación | `/checkout-complete.html` | Sí |
 
 Flujo: Login → Inventario ⇄ Detalle → Carrito → Checkout (datos → resumen → confirmación). El menú lateral (☰) ofrece
-All Items, About, Logout y Reset App State.
+All Items, Dynamic Catalog (Lazy Load, Spinner, Slider), About, Logout y Reset App State.
 
 ## Conceptos y reglas de negocio
 

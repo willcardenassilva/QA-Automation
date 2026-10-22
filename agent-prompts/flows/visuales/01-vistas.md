@@ -17,6 +17,6 @@
 | VIS-13 | Checkout 1 (error) | Mensaje y X visibles, campos en rojo |
 | VIS-14 | Checkout 2 | Pago, envío, subtotal, impuesto y total en orden, con dos decimales |
 | VIS-15 | Checkout 3 | Imagen y encabezado centrados. **Observación:** el botón Back Home no está centrado como en el wireframe |
-| VIS-16 | Menú | Opciones legibles, panel pegado a la izquierda. **Observación:** no se encontró un fondo atenuado y hay 5 opciones |
-| VIS-17 | Todas | Encabezado idéntico y pie al fondo. **Observación:** el pie dice "X" en lugar de "Twitter" |
+| VIS-16 | Menú | Opciones legibles, panel pegado a la izquierda. **Observación:** no se encontró un elemento de fondo atenuado |
+| VIS-17 | Todas | Encabezado idéntico y pie al fondo. El pie dice "X" (documento 1.1) |
 | VIS-18 | Todas | Misma tipografía y estilo de título |

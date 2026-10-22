@@ -49,17 +49,34 @@ Se ejecuta también el login previo (`auth.setup.ts`), que lleva la misma etique
 ## Ejecución diaria en GitHub Actions
 
 El workflow [`.github/workflows/smoke.yml`](../.github/workflows/smoke.yml) ejecuta el smoke test en la nube, sin que
-ninguna máquina local esté encendida:
+ninguna máquina local esté encendida. El resultado aparece en la pestaña **Actions** del repositorio. Si falla, GitHub
+envía un correo, y el informe HTML con capturas y trace queda como artefacto `informe-smoke` durante 14 días. En CI se
+permite 1 reintento para absorber cortes de red momentáneos hacia el sitio.
 
-| Cuándo | Detalle |
-|--------|---------|
-| Todos los días | 12:00 UTC (09:00 en Argentina/Chile). Se cambia en la línea `cron` del workflow |
-| En cada push a `main` | Detecta roturas al momento |
-| A mano | Pestaña **Actions** → "Smoke test diario" → **Run workflow** |
+### Encender, apagar y elegir la hora (desde GitHub, sin tocar código)
 
-El resultado aparece en la pestaña **Actions** del repositorio. Si falla, GitHub envía un correo, y el informe HTML con
-capturas y trace queda como artefacto `informe-smoke` durante 14 días. En CI se permite 1 reintento para absorber cortes
-de red momentáneos hacia el sitio.
+En el repositorio: **Settings → Secrets and variables → Actions → pestaña Variables → New repository variable**.
+
+| Variable | Valores | Qué controla | Si no existe |
+|----------|---------|--------------|--------------|
+| `SMOKE_ACTIVO` | `true` / `false` | Enciende o apaga la corrida diaria y la de cada push | `true` |
+| `SMOKE_HORA` | `0` a `23` | Hora **local** de la corrida diaria | `9` |
+| `SMOKE_ZONA` | zona horaria, p. ej. `America/Argentina/Buenos_Aires`, `America/Santiago`, `America/Mexico_City` | Zona en la que se interpreta `SMOKE_HORA` | `America/Argentina/Buenos_Aires` |
+
+Ejemplos:
+- Apagarlo: crear `SMOKE_ACTIVO` con valor `false`. Volver a encenderlo: cambiarlo a `true`.
+- Correrlo a las 7:00 de Chile: `SMOKE_HORA` = `7` y `SMOKE_ZONA` = `America/Santiago`.
+
+Otras formas de controlarlo:
+- **Ejecutar ahora:** pestaña **Actions** → "Smoke test diario" → **Run workflow**. Funciona siempre, aunque esté apagado.
+- **Pausa completa del workflow:** pestaña **Actions** → "Smoke test diario" → menú **⋯** → **Disable workflow**
+  (y **Enable workflow** para reactivarlo).
+
+Cómo funciona: GitHub no permite una hora variable dentro del `cron`, así que el workflow se despierta **cada hora**
+(minuto 17) y su primer job, "¿Corresponde ejecutar?", compara la hora local con `SMOKE_HORA`. Si no coincide, termina en
+segundos y el smoke no corre. Por eso en la pestaña Actions verás una ejecución corta cada hora. GitHub puede retrasar las
+ejecuciones programadas varios minutos en horas de mucha carga: se recomienda no elegir una hora justo antes del cambio
+de hora que le importa.
 
 Condiciones de GitHub: los workflows programados corren desde la rama por defecto (`main`), y en repositorios públicos
 GitHub los desactiva tras 60 días sin actividad en el repo (se reactivan desde la pestaña Actions).

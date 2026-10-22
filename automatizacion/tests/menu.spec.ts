@@ -19,13 +19,17 @@ test.describe('Menú lateral', () => {
     await expect(page.getByTestId('logout-sidebar-link')).toBeHidden();
   });
 
-  // RF-MEN-01: el documento define 4 opciones. Hallazgo: la app muestra una quinta, "Dynamic Catalog".
-  // Es una diferencia app ≠ documento: se registra como fallo esperado hasta decidir cuál de los dos está desactualizado.
-  test('MEN-01b el menú tiene exactamente las 4 opciones del documento', async ({ page }) => {
-    test.fail(true, 'Diferencia app ≠ documento: el menú incluye una quinta opción, "Dynamic Catalog"');
+  // RF-MEN-01 (documento 1.1): cinco opciones. La quinta, "Dynamic Catalog", se agregó al documento tras la ejecución.
+  test('MEN-01b el menú tiene exactamente las 5 opciones del documento', async ({ page }) => {
     await openMenu(page);
 
-    await expect(page.locator('.bm-item-list a')).toHaveCount(4);
+    await expect(page.locator('.bm-item-list a')).toHaveText([
+      'All Items',
+      'Dynamic Catalog',
+      'About',
+      'Logout',
+      'Reset App State',
+    ]);
   });
 
   test('MEN-02 "All Items" desde el detalle vuelve al listado', async ({ page }) => {

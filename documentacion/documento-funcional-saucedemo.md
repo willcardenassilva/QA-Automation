@@ -4,13 +4,18 @@
 |-------|-------|
 | Producto | Swag Labs – tienda en línea de demostración |
 | URL | https://www.saucedemo.com |
-| Versión del documento | 1.0 (borrador para revisión de QA) |
+| Versión del documento | 1.1 (actualizada con la ejecución de las pruebas) |
 | Audiencia | QA, desarrollo, producto |
-| Estado | Borrador |
+| Estado | Revisado contra el sitio real (2026-10-22); pendiente de confirmar con producto lo marcado como *observado* |
 
 > **Nota de origen.** Este documento describe el comportamiento esperado del producto tal como lo conoce
 > el equipo. Los requisitos (`RF-xxx`) son la base de la que se derivan los casos de prueba y la
 > matriz de trazabilidad (sección 10). Las dudas de interpretación están en la sección 11.
+>
+> **Versión 1.1.** Tras ejecutar las pruebas contra el sitio real se corrigieron las diferencias encontradas y se
+> agregó la función "Dynamic Catalog", que no estaba documentada. Lo que describe el comportamiento *observado* y
+> aún no está confirmado por producto se marca así. Ver el historial de cambios al final y
+> `documentacion/evaluacion-de-bugs.md`.
 
 ---
 
@@ -26,6 +31,7 @@ proceso de compra (checkout) hasta la confirmación del pedido.
 - Carrito de compras.
 - Checkout en tres pasos (datos de envío, resumen, confirmación).
 - Menú lateral de navegación.
+- Dynamic Catalog (función observada: tres variantes de catálogo con carga dinámica; ver 5.9).
 
 ### 1.3 Fuera de alcance
 - Registro de usuarios y recuperación de contraseña.
@@ -57,7 +63,7 @@ el comportamiento diseñado para pruebas. Contraseña común de demo: `secret_sa
 | `error_user` | Falla intencional en acciones concretas (p. ej. al finalizar compra) |
 | `visual_user` | Funciona, pero con diferencias visuales intencionales |
 
-Los comportamientos de los usuarios de prueba son defectos deliberados. Esto se debe tener presente al
+Los comportamientos de los usuarios de prueba son defectos deliberados. Los observados el 2026-10-22 están en `documentacion/evaluacion-de-bugs.md` y en la matriz `automatizacion/tests/todos-los-usuarios.spec.ts` (imágenes repetidas, botones y orden rotos, demoras de unos 5 s, precios aleatorios, íconos desplazados o inclinados). Esto se debe tener presente al
 analizar los resultados: sirven para validar que el QA los detecta (ver `RF-USR-01`).
 
 ---
@@ -104,12 +110,13 @@ analizar los resultados: sirven para validar que el QA los detecta (ver `RF-USR-
 ### 4.2 Pie de página
 ```
 ┌──────────────────────────────────────────────────────────────┐
-│   [Twitter]  [Facebook]  [LinkedIn]                          │
+│   [X]  [Facebook]  [LinkedIn]                                │
 │   © <año> Sauce Labs. All Rights Reserved.                   │
 │   Terms of Service | Privacy Policy                          │
 └──────────────────────────────────────────────────────────────┘
 ```
-Los enlaces sociales abren sitios externos. No participan del flujo de compra.
+Los enlaces sociales (X, Facebook, LinkedIn) abren sitios externos. No participan del flujo de compra.
+*Cambio en 1.1:* la primera red es **X** (antes figuraba Twitter).
 
 ---
 
@@ -346,28 +353,57 @@ Los enlaces sociales abren sitios externos. No participan del flujo de compra.
 | RF-CHK-14 | Se muestra *"Thank you for your order!"* y el carrito queda vacío (badge oculto) |
 | RF-CHK-15 | **Back Home** abre el listado de productos con el carrito en 0 |
 
+*Observado en 1.1:* la imagen y el encabezado están centrados, pero el botón **Back Home** no queda en el centro de la página (desplazado unos 88 px a 1920×1080). Pendiente de confirmar con producto si es intencional.
+
 ---
 
 ### 5.8 Menú lateral
 
 ```
-┌─────────────────┐
-│            [X]  │
-│ All Items       │
-│ About           │
-│ Logout          │
-│ Reset App State │
-└─────────────────┘
+┌─────────────────────┐
+│                [X]  │
+│ All Items           │
+│ Dynamic Catalog  ^  │
+│    Lazy Load        │
+│    Spinner          │
+│    Slider           │
+│ About               │
+│ Logout              │
+│ Reset App State     │
+└─────────────────────┘
 ```
 
 | ID | Requisito |
 |----|-----------|
-| RF-MEN-01 | El botón ☰ abre el menú con cuatro opciones; la X lo cierra |
+| RF-MEN-01 | El botón ☰ abre el menú con **cinco opciones** (All Items, Dynamic Catalog, About, Logout, Reset App State); la X lo cierra. *Cambio en 1.1: antes figuraban cuatro* |
 | RF-MEN-02 | **All Items** abre el listado de productos |
 | RF-MEN-03 | **About** abre el sitio de Sauce Labs (saucelabs.com) |
 | RF-MEN-04 | **Logout** cierra la sesión y abre la pantalla de login con los campos vacíos |
 | RF-MEN-05 | **Reset App State** deja el carrito en 0 y los botones de los productos en *Add to cart* |
+| RF-MEN-06 | **Dynamic Catalog** se despliega con tres opciones (Lazy Load, Spinner, Slider); cada una abre su página (ver 5.9) |
 | RF-LOG-10 | Tras un logout no se puede volver a pantallas protegidas con el botón "atrás" del navegador sin iniciar sesión de nuevo |
+
+*Observado en 1.1 (defecto, no cambia el requisito):* tras **Reset App State** el contador se vacía, pero los botones del
+listado siguen en *Remove* hasta recargar la página (incumple RF-MEN-05 sin recarga). No se observa un elemento de fondo
+atenuado al abrir el menú.
+
+---
+
+### 5.9 Dynamic Catalog (función observada)
+
+> Esta función no estaba en la documentación original. Se describe lo observado el 2026-10-22; pendiente de confirmar con producto.
+
+| Opción | URL | Comportamiento observado |
+|--------|-----|--------------------------|
+| Lazy Load | `/dynamic-catalog-lazy-load.html` | Título "Dynamic Catalog - Lazy Load". Muestra una cuadrícula que carga más tarjetas al bajar: de 12 a 100 (21 nombres distintos, con variantes por talla). En las pruebas se detuvo en 100 |
+| Spinner | `/dynamic-catalog-spinner.html` | Título "Dynamic Catalog - Spinner". Muestra un indicador de carga y luego los 6 productos |
+| Slider | `/dynamic-catalog-slider.html` | Título "Dynamic Catalog - Slider". Muestra un producto a la vez |
+
+| ID | Requisito (observado) |
+|----|-----------------------|
+| RF-DYN-01 | Lazy Load abre su página y carga más tarjetas al bajar |
+| RF-DYN-02 | Spinner muestra un indicador de carga y después los 6 productos |
+| RF-DYN-03 | Slider muestra un producto a la vez |
 
 ---
 
@@ -384,6 +420,8 @@ Los enlaces sociales abren sitios externos. No participan del flujo de compra.
 
 Cada producto tiene una imagen y una descripción propias. La cantidad por producto en el carrito es siempre 1
 (no existe selector de cantidad).
+
+*Observado en 1.1:* el producto 3 se llama `Test.allTheThings() T-Shirt (Red)`, un nombre con forma de código, y su imagen es una prenda naranja-salmón con aspecto de suéter. Pendiente de confirmar con producto si el nombre y la imagen son los definitivos (duda 11.9).
 
 ---
 
@@ -432,7 +470,8 @@ Todos los textos de la interfaz están en inglés. La traducción automática de
 | RNF-VIS-02 | Las imágenes cargan correctamente, se muestran sin deformarse y los textos no quedan cortados ni superpuestos |
 | RNF-VIS-03 | El encabezado y el pie de página son idénticos en todas las pantallas con sesión |
 | RNF-VIS-04 | Los botones, campos y mensajes de error mantienen un estilo consistente entre pantallas (tipografía, colores, estados) |
-| RNF-VIS-05 | Los estados visuales (botón *Add to cart* / *Remove*, badge del carrito, mensaje de error) son claramente distinguibles |
+| RNF-VIS-05 | Los estados visuales (botón *Add to cart* / *Remove*, badge del carrito, mensaje de error) son claramente distinguibles, y el texto cumple un contraste mínimo de 4,5:1 (WCAG AA). *Observado: el mensaje de error tiene 4,68:1, por muy poco* |
+| RNF-VIS-07 | Los íconos y elementos de la interfaz no presentan rotaciones, escalas ni desplazamientos respecto a su posición de diseño |
 | RNF-VIS-06 | La interfaz es utilizable, sin scroll horizontal, en las resoluciones soportadas (pendiente de confirmar, ver 11.5) |
 
 ---
@@ -472,18 +511,20 @@ Todos los textos de la interfaz están en inglés. La traducción automática de
 | RF-CHK-10, 11 | CHK-09 |
 | RF-CHK-12 | CHK-07 |
 | RF-CHK-15 | CHK-11 |
-| RF-MEN-01 | MEN-01 |
+| RF-MEN-01 | MEN-01, MEN-01b |
 | RF-MEN-02 | MEN-02 |
 | RF-MEN-03 | MEN-03 |
-| RF-MEN-05 | MEN-04 |
+| RF-MEN-05 | MEN-04, MEN-04b |
+| RF-MEN-06, RF-DYN-01…03 | DYN-01, DYN-02, DYN-03 |
 | RF-USR-01 | USR-01 a USR-07, VIS-25 |
 | RNF-VIS-01 | VIS-01, 03, 04, 07, 08, 10, 12, 14, 15, 16, 25 |
 | RNF-VIS-02 | VIS-05, 24 |
 | RNF-VIS-03 | VIS-17 |
 | RNF-VIS-04 | VIS-02, 13, 18 |
-| RNF-VIS-05 | VIS-06, 09, 11 |
+| RNF-VIS-05 | VIS-06, 09, 11, 26 |
+| RNF-VIS-07 | USR-07b, 07d, 07e, MAT-visual_user |
 | RNF-VIS-06 | VIS-19 a 23 |
-| *(sin requisito definido)* | CHK-12 (ver punto 11.1) |
+| *(sin requisito definido)* | CHK-12 (ver punto 11.1), LOG-11 (ver punto 11.8) |
 
 ---
 
@@ -499,3 +540,17 @@ Cuando la documentación no cubre un escenario, el QA lo eleva antes de definir 
 | 11.4 | ¿Cuál es el tiempo máximo aceptable de carga para `performance_glitch_user`? | USR-05 |
 | 11.5 | ¿Qué navegadores y resoluciones están soportados? | Alcance de ejecución |
 | 11.6 | ¿Debe mantenerse el carrito tras un logout y un nuevo login? | CAR-08 |
+| 11.7 | ¿Cuál es el comportamiento definitivo de Dynamic Catalog (límite de tarjetas en Lazy Load, variantes por talla, uso del Slider)? | DYN-01 a DYN-03 |
+| 11.8 | Con la sesión activa, ¿debe el botón "atrás" mostrar el formulario de login, o redirigir al inventario? | LOG-11 |
+| 11.9 | ¿El nombre `Test.allTheThings() T-Shirt (Red)` y su imagen (un suéter naranja) son los definitivos? | Catálogo (sin test) |
+| 11.10 | ¿Se incorporarán cantidades por producto y aviso de última unidad (hoy no existen por diseño, RN-02)? | CAR |
+| 11.11 | ¿El botón "Back Home" debe ir centrado como en el wireframe? | VIS-15 |
+
+---
+
+## 12. Historial de cambios
+
+| Versión | Fecha | Cambios |
+|---------|-------|---------|
+| 1.0 | 2026-10 | Borrador inicial, escrito a partir del conocimiento del sitio y sin ejecutar la aplicación |
+| 1.1 | 2026-10-22 | Actualizado tras ejecutar las pruebas: menú con cinco opciones y submenú Dynamic Catalog (RF-MEN-01, RF-MEN-06); nueva sección 5.9 con RF-DYN-01…03; pie con "X"; observación de Back Home; nota sobre nombre e imagen del producto 3; contraste mínimo y RNF-VIS-07; dudas 11.7 a 11.11; matriz de trazabilidad ampliada |

@@ -9,7 +9,7 @@
 
 | # | Acción | Resultado esperado |
 |---|--------|--------------------|
-| 1 | Pulsar ☰ | Se abre el menú. **Documento: 4 opciones. App observada: 5** (All Items, Dynamic Catalog, About, Logout, Reset App State) |
+| 1 | Pulsar ☰ | Se abre el menú con 5 opciones (All Items, Dynamic Catalog, About, Logout, Reset App State; documento 1.1) |
 | 2 | Pulsar la X | El menú se cierra |
 | 3 | Desde el detalle de un producto, menú → All Items | Vuelve a `/inventory.html` con los 6 productos |
 | 4 | Menú → About | El enlace apunta a saucelabs.com (se verifica el destino, sin navegar) |

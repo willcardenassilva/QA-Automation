@@ -12,9 +12,10 @@
 
 | Caso | Documento funcional / wireframe | App observada |
 |------|----------------------------------|---------------|
-| VIS-15 | Botón "Back Home" centrado | Desplazado del centro (la distancia queda como observación en el informe) |
-| VIS-16 | Menú de 4 opciones y fondo atenuado | 5 opciones ("Dynamic Catalog"); sin elemento de fondo atenuado |
-| VIS-17 | Pie con "Twitter" | Pie con "X" |
+| VIS-15 | Botón "Back Home" centrado | Desplazado del centro (documento 1.1: observación y duda 11.11) |
+| VIS-16 | Fondo atenuado al abrir el menú | Sin elemento de fondo atenuado (el menú de 5 opciones ya está en el documento 1.1) |
+
+**Corregido en el documento 1.1:** el pie dice "X" (antes Twitter) y el menú tiene 5 opciones (antes 4).
 
 ## Pendiente
 

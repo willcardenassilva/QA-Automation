@@ -43,8 +43,8 @@ cubierto) · **Parcial** = se confirma una parte · **No reproducido** = no se p
 | Hallazgo | Usuario | Test |
 |----------|---------|------|
 | "Reset App State" vacía el contador, pero los botones siguen en "Remove" hasta recargar | `standard_user` | `MEN-04b` |
-| El menú tiene 5 opciones ("Dynamic Catalog") y el documento define 4 | `standard_user` | `MEN-01b` |
-| El pie dice "X" en lugar de "Twitter" | `standard_user` | `VIS-17` |
+| El menú tiene 5 opciones ("Dynamic Catalog") y el documento definía 4 (**corregido en el documento 1.1**) | `standard_user` | `MEN-01b` |
+| El pie dice "X" en lugar de "Twitter" (**corregido en el documento 1.1**) | `standard_user` | `VIS-17` |
 | El botón "Back Home" no está centrado como en el wireframe | `standard_user` | `VIS-15` |
 | Las direcciones directas (`/inventory.html`) responden HTTP 404 y luego cargan (alojamiento en GitHub Pages) | `standard_user` | `VIS-24` (nota técnica) |
 | El apellido se escribe en el campo del nombre | `problem_user` | `USR-04` |
@@ -65,17 +65,19 @@ documentan, pero no se reportan como bugs del producto (regla `github-bug-creati
 | **Diferencias app ≠ documento** | Menú con 5 opciones · Pie con "X" · Back Home descentrado · Dynamic Catalog sin documentar |
 | **Defectos intencionales** (se documentan) | #4, #5, #6, #7, #8, #10, #11, #12, #13 y los de la sección 2 de los cuatro usuarios de prueba |
 
-## 4. Bugs sugeridos (borrador; no se crean sin tu confirmación)
+## 4. Bugs creados en GitHub (2026-10-22)
 
-| Título | Severidad | Requisito / caso |
-|--------|-----------|------------------|
-| `[Checkout] Se puede iniciar el checkout con el carrito vacío` | Major | Duda 11.1 · `CHK-12` |
-| `[Menú] "Reset App State" no devuelve los botones a "Add to cart" sin recargar` | Minor | RF-MEN-05 · `MEN-04b` |
-| `[Catálogo] El producto se llama "Test.allTheThings() T-Shirt (Red)" (código) y su imagen es un suéter naranja` | Minor | RF-PRO-01 · sin test |
-| `[Login] El mensaje de error tiene poco contraste (4,68:1)` | Minor | RNF-VIS-05 · `VIS-26` |
+| Issue | Título | Severidad | Requisito / caso |
+|-------|--------|-----------|------------------|
+| [#1](https://github.com/willcardenassilva/QA-Automation/issues/1) | `[Checkout] Se puede iniciar el checkout con el carrito vacío` | Major | Duda 11.1 · `CHK-12` |
+| [#2](https://github.com/willcardenassilva/QA-Automation/issues/2) | `[Menú] "Reset App State" no devuelve los botones a "Add to cart" sin recargar` | Minor | RF-MEN-05 · `MEN-04b` |
+| [#3](https://github.com/willcardenassilva/QA-Automation/issues/3) | `[Catálogo] El producto se llama "Test.allTheThings() T-Shirt (Red)" y su imagen es un suéter naranja` | Minor | RF-PRO-01 · duda 11.9 · sin test |
+| [#4](https://github.com/willcardenassilva/QA-Automation/issues/4) | `[Login] El mensaje de error tiene poco contraste (4,68:1)` | Minor | RNF-VIS-05 · `VIS-26` |
+
+Se crearon con la plantilla `bug.yml` y la etiqueta `bug`; la severidad va en el cuerpo del issue.
 
 ## 5. Acciones propuestas
 
 1. Revisar con producto las dudas: checkout vacío, "atrás" con sesión activa y la función "Dynamic Catalog".
-2. Actualizar el documento funcional con las diferencias (menú, pie, Dynamic Catalog); requiere tu autorización.
-3. Crear los 4 issues sugeridos cuando lo apruebes.
+2. ~~Actualizar el documento funcional con las diferencias~~ **Hecho (documento 1.1, 2026-10-22).**
+3. ~~Crear los 4 issues sugeridos~~ **Hecho (#1 a #4).**
