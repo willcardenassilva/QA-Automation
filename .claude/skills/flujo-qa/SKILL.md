@@ -14,9 +14,9 @@ En una empresa el QA no empieza probando: recibe documentación y de ella salen 
 | 3. Casos | `casos-de-prueba` | Casos funcionales y visuales, camino crítico | `casos-manuales/casos-de-prueba-<producto>.md` |
 | 4. Revisión | `trazabilidad-qa` | Cobertura verificada y matrices coherentes | (corrige los anteriores) |
 | 5. Entrega | (este flujo) | Commit y push al repositorio | |
-| 6. Ejecución con agente | `saucedemo-tester`, `saucedemo-testing-method`, `saucedemo-checkout` | Flujos de `agent-prompts/flows/` ejecutados en el navegador, `99-resumen-ejecucion.md` y bugs en GitHub Issues | `agent-prompts/flows/<épica>/` |
+| 6. Pruebas manuales y ejecución con agente | `saucedemo-tester`, `saucedemo-testing-method`, `saucedemo-checkout` | Flujos de `agent-prompts/flows/` ejecutados en el navegador, `99-resumen-ejecucion.md` y bugs en GitHub Issues | `agent-prompts/flows/<épica>/` |
 | 7. Automatización | Playwright (`automatizacion/`) | Pruebas automáticas del camino crítico; el código inicia sesión, sin intervención manual | `automatizacion/tests/` |
-| 8. Evaluación | `qa-exhaustivo` | Cruce de los hallazgos manuales con los del agente, medidos y clasificados; casos y tests nuevos para lo que falte | `documentacion/evaluacion-de-bugs.md` |
+| 8. Comparación manual vs. automatizado | `qa-exhaustivo` | Cruce de los hallazgos manuales de la persona con los del agente y la automatización, medidos y clasificados; casos y tests nuevos para lo que solo apareció en una vía | `documentacion/evaluacion-de-bugs.md` |
 
 ## Cómo conducirlo
 

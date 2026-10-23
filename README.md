@@ -20,6 +20,7 @@ apoyo de un asistente de IA (Claude Code), y cada resultado fue verificado por m
 | Automatización | 98 pruebas en Playwright con TypeScript; el código inicia sesión solo |
 | Integración continua | Smoke diario y regresión semanal en GitHub Actions, configurables desde GitHub |
 | Pruebas visuales y de accesibilidad | Comprobaciones medidas: posiciones, imágenes, contraste, resoluciones, zoom |
+| Pruebas manuales y validación cruzada | Hallazgos manuales verificados con medidas y comparados contra la automatización |
 | Pruebas con todos los perfiles | Matriz de 6 usuarios × 16 verificaciones comparadas contra el usuario base |
 | Gestión de defectos | Matriz de 21 hallazgos con severidad, categoría, origen, capturas y medidas |
 | Trabajo con IA | Skills y reglas propias que ordenan el trabajo del asistente |
@@ -32,6 +33,7 @@ apoyo de un asistente de IA (Claude Code), y cada resultado fue verificado por m
 | Historias de usuario | **17**, en 6 épicas, con criterios Gherkin |
 | Pruebas automatizadas | **98** en 12 archivos, todas en verde |
 | Usuarios probados | **6** (los 6 que ofrece el sitio) × 16 verificaciones |
+| Hallazgos manuales verificados | **17**: 6 coinciden con la automatización, 6 son aportes, 2 parciales y 3 no son defecto |
 | Hallazgos documentados | **21**: 2 bloqueantes, 7 visuales, 12 no bloqueantes |
 | Evidencias | **24** capturas más un archivo de medidas |
 | Issues reportados en GitHub | **4** (los defectos reales del producto) |
@@ -42,7 +44,8 @@ apoyo de un asistente de IA (Claude Code), y cada resultado fue verificado por m
 
 ```
 Documento funcional → Historias de usuario → Casos de prueba → Revisión de trazabilidad
-        → Ejecución asistida por IA → Automatización (Playwright) → Ejecución en la nube → Matriz de bugs
+        → Pruebas manuales exploratorias → Ejecución asistida por IA → Automatización (Playwright)
+        → Comparación manual vs. automatizado (valida la funcionalidad) → Ejecución en la nube → Matriz de bugs
 ```
 
 1. **Documento funcional.** Alcance, roles, mapa de navegación, wireframes en texto de cada pantalla, requisitos `RF-` y
@@ -51,11 +54,20 @@ Documento funcional → Historias de usuario → Casos de prueba → Revisión d
 2. **Historias de usuario.** Escritas como "Como… quiero… para…", con escenarios Gherkin y prioridad MoSCoW.
 3. **Casos de prueba.** Funcionales, negativos y visuales por vista, con precondición, pasos, resultado esperado,
    prioridad, requisito y resultado real. Incluye el camino crítico y el subconjunto de smoke.
-4. **Ejecución asistida por IA.** Flujos ejecutables para un agente que prueba en el navegador, con modos rápido, completo y
-   de regresión, y un resumen de ejecución por épica.
-5. **Automatización.** Pruebas con Playwright y TypeScript, con el ID del caso en el título de cada test.
-6. **Ejecución en la nube.** GitHub Actions: smoke diario y regresión completa semanal.
-7. **Matriz de bugs.** Cada hallazgo con categoría, severidad, origen, pasos, esperado, observado, impacto y evidencia.
+4. **Pruebas manuales exploratorias.** Recorrí el sitio con cada usuario y registré mis hallazgos con capturas, sobre todo
+   visuales, de contenido, de navegación y de rendimiento. Son los que una persona detecta mirando con criterio:
+   nombres que parecen código, un mensaje de error difícil de leer, un ícono inclinado, el comportamiento de "atrás".
+5. **Ejecución asistida por IA.** Flujos ejecutables para un agente que prueba en el navegador, con modos rápido, completo
+   y de regresión, y un resumen de ejecución por épica.
+6. **Automatización.** Pruebas con Playwright y TypeScript, con el ID del caso en el título de cada test, que repiten de
+   forma exacta y medida lo que se probó a mano.
+7. **Comparación manual vs. automatizado.** Valida la funcionalidad por dos vías. Cada hallazgo manual se verificó con
+   medidas y se cruzó con lo que encontró la automatización: de **17 hallazgos manuales**, 6 coincidieron, 6 aportaron algo
+   que la automatización no cubría, 2 se confirmaron en parte y 3 no eran defectos. A la inversa, la automatización encontró
+   **10 hallazgos que no estaban en la lista manual**. Lo que apareció solo en una vía se convirtió en caso y en test
+   (ver la [evaluación](documentacion/evaluacion-de-bugs.md)).
+8. **Ejecución en la nube.** GitHub Actions: smoke diario y regresión completa semanal.
+9. **Matriz de bugs.** Cada hallazgo con categoría, severidad, origen, pasos, esperado, observado, impacto y evidencia.
 
 ## Estructura del repositorio
 
@@ -128,6 +140,9 @@ La [matriz de bugs](documentacion/matriz-de-bugs.md) clasifica los 21 hallazgos.
   visuales y de contenido: nombres, imágenes, precios, alineaciones y contraste.
 - **Probar con todos los usuarios.** Una matriz de usuarios × verificaciones muestra a la vez qué falla en quién y qué cambia
   frente al usuario base. Me llevó a descubrir fallos que no habría visto con un solo usuario.
+- **Lo manual y lo automático se complementan.** Mis pruebas manuales encontraron lo que exige criterio (contraste, contenido,
+  navegación, un ícono inclinado) y la automatización encontró lo que exige repetición y medida (precios que cambian,
+  tiempos, posiciones, usuarios con fallas). Comparar ambas vías validó la funcionalidad mejor que cualquiera por separado.
 - **Abrir todo.** Una función no documentada ("Dynamic Catalog") estaba en un submenú que nadie había abierto.
 - **La documentación no es la verdad absoluta.** Cuando la aplicación difiere, se reporta y se registra la duda; no se
   inventa el resultado esperado.
