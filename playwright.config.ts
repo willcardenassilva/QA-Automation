@@ -30,5 +30,16 @@ export default defineConfig({
       dependencies: ['setup'],
       use: { ...devices['Desktop Chrome'], storageState: SESSION_FILE },
     },
+    // Pruebas de API (Restful-Booker): sin navegador y sin sesion de SauceDemo
+    {
+      name: 'api',
+      testDir: 'api-testing/tests',
+      testMatch: /\.spec\.ts/,
+      retries: 1, // la API publica es compartida y a veces responde lento
+      use: {
+        baseURL: 'https://restful-booker.herokuapp.com',
+        extraHTTPHeaders: { Accept: 'application/json' },
+      },
+    },
   ],
 });
