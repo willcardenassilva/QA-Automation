@@ -1,60 +1,72 @@
-# Pruebas de API (Restful-Booker)
+# Pruebas de API: Restful-Booker
 
-Ruta de aprendizaje: **entender → probar a mano en Postman → automatizar → subir a GitHub**.
-API bajo prueba: https://restful-booker.herokuapp.com (pública, hecha para practicar QA; documentación: https://restful-booker.herokuapp.com/apidoc/index.html).
+Proyecto de práctica en el que pruebo una API REST pública hecha para practicar QA: [Restful-Booker](https://restful-booker.herokuapp.com) ([documentación](https://restful-booker.herokuapp.com/apidoc/index.html)). Primero diseñé y ejecuté las pruebas a mano en Postman y después las automaticé con Playwright y TypeScript.
 
-## 1. Qué es una API (lo mínimo)
+Es un proyecto de aprendizaje sobre una API de demostración, no una prueba sobre un sistema en producción.
 
-Una API es la "puerta" por la que el front (la web) habla con el back (el servidor). En SauceDemo probabas lo que
-**se ve**; aquí pruebas lo que **responde el servidor**, sin pantalla.
+## Resumen
 
-Cada petición tiene:
-
-| Parte | Ejemplo | Para qué |
-|---|---|---|
-| Método | `GET`, `POST`, `PUT`, `PATCH`, `DELETE` | Qué quieres hacer: leer, crear, reemplazar, modificar, borrar |
-| URL | `/booking/1` | Sobre qué recurso |
-| Headers | `Content-Type: application/json` | Metadatos (formato, token) |
-| Body | `{"firstname":"Ana"}` | Los datos que envías (en POST/PUT/PATCH) |
-
-Cada respuesta tiene: **código de estado**, **headers**, **body** y **tiempo**.
-
-| Código | Significa |
+| | |
 |---|---|
-| 200 | OK |
-| 201 | Creado |
-| 400 | Petición mal hecha (error del cliente) |
-| 401 / 403 | Sin autenticar / sin permiso |
-| 404 | No existe |
-| 500 | Error del servidor (casi siempre un bug) |
+| Casos manuales diseñados | 17 |
+| Pruebas automatizadas (Playwright + TypeScript) | 15, se ejecutan en unos 8 a 9 segundos |
+| Hallazgos documentados | 3 |
 
-## 2. Qué se valida en una prueba de API
+## Qué probé
 
-1. **Código de estado** correcto.
-2. **Body**: campos, tipos y valores correctos.
-3. **Headers** (ej. `Content-Type`).
-4. **Tiempo** de respuesta razonable.
-5. **Seguridad básica**: sin token no debe dejar modificar/borrar.
-6. **Negativos**: datos vacíos, inválidos, ids que no existen.
+- **Autenticación**: login válido con token, credenciales inválidas y formato de datos incorrecto.
+- **CRUD completo**: crear, leer, actualizar (completo con `PUT` y parcial con `PATCH`) y borrar reservas, verificando que lo creado se pueda leer y que lo borrado deje de existir.
+- **Filtros**: búsqueda de reservas por nombre.
+- **Seguridad básica**: modificar o borrar sin token debe responder 403 y no cambiar nada.
+- **Casos negativos**: body vacío e id inexistente.
+- **Tiempo de respuesta**: menor a 2000 ms.
 
-## 3. Fase 1: manual con Postman
+En cada respuesta valido el código de estado, la estructura del body (campos y valores) y el tiempo.
 
-1. Instala Postman (https://www.postman.com/downloads/) e inicia sesión o usa "Lightweight API client".
-2. `Import` → `postman/restful-booker.postman_collection.json` y `postman/restful-booker.postman_environment.json`.
-3. Elige el entorno **Restful-Booker** (arriba a la derecha).
-4. Ejecuta las peticiones **en orden** (carpeta 01 → 05) y compara con `casos-manuales-api.md`.
-5. Anota el resultado real en esa tabla.
+## Cómo lo trabajé
 
-## 4. Fases siguientes
+1. **Casos manuales.** Diseñé 17 casos con ID, petición y resultado esperado (ver [`casos-manuales-api.md`](casos-manuales-api.md)) y los ejecuté a mano en Postman, comparando lo esperado con lo obtenido. Los resultados coincidieron con los de la automatización, por eso no los repito en la tabla.
+2. **Postman.** Armé una colección con entorno y variables, organizada en cinco carpetas. Cada petición tiene validaciones automáticas de código de estado, estructura y tiempo. La colección y el entorno están en [`postman/`](postman).
+3. **Automatización con Playwright.** Pasé los mismos casos a pruebas de API con el cliente `request` de Playwright, sin navegador. Cada prueba crea sus propios datos y los limpia al terminar, así que ninguna depende de otra. Los tests están en [`tests/`](tests) y las ayudas en [`support/api.ts`](support/api.ts).
 
-- **Fase 2 (automatizar):** hecha con Playwright (cliente de API `request`, sin navegador). Tests en
-  `api-testing/tests/`, ayudas en `api-testing/support/api.ts`. Se ejecuta con `npm run test:api`.
-  Los hallazgos conocidos (API-03, API-08, API-17) están como `test.fail`: pasan mientras la API siga fallando así.
-- **Fase 3 (GitHub):** commit y push cuando tú lo confirmes.
+## Hallazgos
 
-## Hallazgos ya observados (a confirmar tú en Postman)
+Son comportamientos reales de esta API. Los registro como hallazgos y no los "arreglo": en la suite están marcados con `test.fail`, de modo que pasan mientras la API siga fallando así y avisan si algún día la corrigen.
 
-- `POST /auth` con credenciales malas responde **200** con `{"reason":"Bad credentials"}` (lo esperable sería 401).
-- `POST /booking` con body vacío responde **500** (lo esperable sería 400).
+| ID | Qué esperaba | Qué pasó | Por qué importa |
+|---|---|---|---|
+| API-03 | Login con contraseña incorrecta: 401 | Responde **200** con `{"reason":"Bad credentials"}` | Un cliente que solo mira el código de estado podría creer que se autenticó |
+| API-08 | `POST /booking` con body vacío: 400 | Responde **500** | Un dato inválido del cliente se reporta como falla del servidor |
+| API-17 | Login con formato de datos incorrecto (`form-data`): rechazo 4xx | Responde **200** con `{"reason":"Bad credentials"}` | Un formato que la API no soporta no se rechaza de forma explícita |
 
-Son comportamientos reales de esta API de práctica: se registran como hallazgos, no se "arreglan".
+## Cómo ejecutarlo
+
+Requisitos: Node.js.
+
+```bash
+npm install
+npm run test:api
+```
+
+Resultado esperado: 15 pruebas ejecutadas. Los tres hallazgos aparecen como fallos esperados.
+
+Para repetir la parte manual en Postman:
+
+1. Importar `api-testing/postman/restful-booker.postman_collection.json` y `api-testing/postman/restful-booker.postman_environment.json`.
+2. Elegir el entorno **Restful-Booker**.
+3. Ejecutar las peticiones en orden, de la carpeta 01 a la 05. Las validaciones se ven en la pestaña de resultados de cada petición.
+
+## Estructura
+
+```
+api-testing/
+├── README.md                 este documento
+├── casos-manuales-api.md     los 17 casos diseñados
+├── postman/                  colección y entorno de Postman
+├── support/api.ts            ayudas para las pruebas (cliente, datos, token)
+└── tests/                    pruebas de Playwright (auth, booking, negativos)
+```
+
+## Alcance
+
+La API es compartida y se reinicia periódicamente, así que uso datos de prueba como `Ana QA`, nunca datos reales. Si una prueba falla una sola vez, la repito antes de concluir, porque puede ser lentitud del servidor.
